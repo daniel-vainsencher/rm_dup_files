@@ -43,8 +43,8 @@ def remove_duplicate_files(to_decimate, baseline):
             if os.path.exists(target_file_name):
                 source_stat = os.stat(source_file_name)
                 target_stat = os.stat(target_file_name)
-                if source_stat.st_mtime != target_stat.st_mtime:
-                    print('{} modified at different time than corresponding target.'.format(to_utf(source_file_name)))
+                if source_stat.st_size != target_stat.st_size:
+                    print('{} differently sized than corresponding target.'.format(to_utf(source_file_name)))
                     # should check other stats, but not now
                 elif not files_identical(source_file_name, target_file_name):
                     print('{} differs in content from corresponding target.'.format(to_utf(source_file_name)))
@@ -52,7 +52,7 @@ def remove_duplicate_files(to_decimate, baseline):
                     print('{} is identical to corresponding target, removing.'.format(to_utf(source_file_name)))
                     os.remove(source_file_name)
 
-                if not os.listdir(dir_path):
-                    print('{} is empty, removing.'.format(to_utf(dir_path)))
-                    os.rmdir(dir_path)
+        if not os.listdir(dir_path):
+            print('{} is empty, removing.'.format(to_utf(dir_path)))
+            os.rmdir(dir_path)
 
