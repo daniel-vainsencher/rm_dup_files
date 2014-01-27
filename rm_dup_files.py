@@ -1,12 +1,11 @@
 import os
 from os import path
-import hashlib
-from functools import partial
+import functools
 from itertools import zip_longest
 
 
 def read_file_blocks(f):
-    for block in iter(partial(f.read, 8192), b''):
+    for block in iter(functools.partial(f.read, 8192), b''):
         yield block
 
 
@@ -21,7 +20,7 @@ def files_identical(first_name, second_name):
 
 
 def to_utf(a):
-    return ''.join(['0x'+hex(ord(x))[2:] if ord(x)>127 else x for x in a])
+    return ''.join(['0x'+hex(ord(x))[2:] if ord(x) > 127 else x for x in a])
 
 
 def remove_duplicate_files(to_decimate, baseline):
@@ -55,4 +54,3 @@ def remove_duplicate_files(to_decimate, baseline):
         if not os.listdir(dir_path):
             print('{} is empty, removing.'.format(to_utf(dir_path)))
             os.rmdir(dir_path)
-
